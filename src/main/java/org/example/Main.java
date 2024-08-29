@@ -4,10 +4,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Random rand = new Random();
-        HashMap<Integer,String> map = new HashMap<>();
-        map = coose(rand,map);
-        statistic(map);
+//        statistic(way1());
+        statistic(way2());
     }
 
     public static void statistic (HashMap<Integer,String> map) {
@@ -19,14 +17,17 @@ public class Main {
             }
         }
         System.out.printf("Итого выиграл %s из %s\n",count,map.size());
+        System.out.println("Процент побед " + count/10 + "%");
     }
 
-    public  static HashMap<Integer,String> coose (Random rand,HashMap<Integer,String> map) {
+    public  static HashMap<Integer,String> way1 () {
+        Random rand = new Random();
+        HashMap<Integer,String> map = new HashMap<>();
         int car;
         int choice;
-        for (int i = 1; i < 101; i++) {
-            car = rand.nextInt(1,4);
-            choice = rand.nextInt(1,4);
+        for (int i = 1; i <= 1000; i++) {
+            car = rand.nextInt(3);
+            choice = rand.nextInt(3);
             if (choice == car) {
                 map.put(i,"Выиграл");
             } else {
@@ -36,17 +37,29 @@ public class Main {
         return map;
     }
 
-    public  static HashMap<Integer,String> coose1 (Random rand,HashMap<Integer,String> map) {
-        int [] arr = {1,2,3};
+    public  static HashMap<Integer,String> way2 () {
+        Random rand = new Random();
+        HashMap<Integer,String> map = new HashMap<>();
         int car;
         int choice;
-        int f;
-        for (int i = 1; i < 101; i++) {
-            car = rand.nextInt(1,4);
-            choice = rand.nextInt(1,4);
-            for (int el: arr) {
-                if (el != car && el != choice) {
+        for (int i = 1; i <= 1000; i++) {
+            ArrayList<Integer> list = new ArrayList<>();
+            list.add(0);
+            list.add(1);
+            list.add(2);
+            car = rand.nextInt(3);
+            choice = rand.nextInt(3);
+            for (int j = 0; true; j++) {
+                if ( j != choice && j != car) {
+                    list.remove(j);
+                    break;
+                }
+            }
 
+            for (Integer k: list) {
+                if (k != choice) {
+                    choice = k;
+                    break;
                 }
             }
 
